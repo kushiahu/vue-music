@@ -2,6 +2,7 @@ import platziMusicService from './platzi-music'
 
 const trackService = {}
 
+// me devuelve la lista de tracks de una busqueda
 trackService.search = function (q) {
   const type = 'track'
   return platziMusicService.get('/search', {
@@ -17,5 +18,10 @@ factorizamos la funcion como una arrow function
 --- otro ---
 .then((res) => res.data)
 */
+
+trackService.getById = function (id) {
+  return platziMusicService.get(`/tracks/${id}`)
+    .then(res => res.data)
+}
 
 export default trackService

@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" v-if="track && track.album">
     <div class="card-image">
       <figure class="image is-1by1">
         <img :src="track.album.images[0].url" alt="">
@@ -28,6 +28,9 @@
             <button type="button" name="button" class="level-item button is-primary">
               <span class="icon is-small" @click="selectTrack">▶️</span>
             </button>
+            <button type="button" name="button" class="level-item button is-primary">
+              <span class="icon is-small" @click="goToTrack(track.id)">🌎</span>
+            </button>
           </div>
         </nav>
       </div>
@@ -44,6 +47,9 @@ export default {
     selectTrack () {
       this.$emit('evSelect', this.track.id) // funcion que emite un evento al padre para que lo escuche
       this.$bus.$emit('set-track', this.track) // usa el plugin $bus que se instalo en main.js y se usa en header.vue y player.vue
+    },
+    goToTrack (id) {
+      this.$router.push({ name: 'track', params: { id } })
     }
   }
 }

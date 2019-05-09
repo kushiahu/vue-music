@@ -1,7 +1,7 @@
 <template lang="pug">
-  .content
+  .content(v-if="track && track.album")
     p
-      img(:src="imgTrack")
+      img(:src="track.album.images[0].url")
     p
       strong {{ track.name }}
       small [{{ track.duration_ms }}]
@@ -13,14 +13,12 @@
 export default {
   data () {
     return {
-      track: {},
-      imgTrack: ''
+      track: {}
     }
   },
   created () {
     this.$bus.$on('set-track', (track) => {
       this.track = track
-      this.imgTrack = track.album.images[0].url
     })
   }
 }
