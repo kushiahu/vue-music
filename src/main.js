@@ -6,6 +6,7 @@ import msToMm from '@/filters/ms-to-mm'
 import blur from '@/directives/blur'
 
 import routes from '@/routes'
+import store from '@/store'
 
 import EventBus from '@/plugins/event-bus' // plugin que se usa para comunicar un componente con otro que no son hijo ni padre
 
@@ -22,5 +23,6 @@ const router = new VueRouter({
 new Vue({
   el: '#app',
   render: h => h(App),
-  router: router
+  router: router,
+  store
 })
