@@ -2,18 +2,40 @@
   .container
     plt-loader(v-show="isLoading")
     .columns
-     .column.is-4.is-offset-4
-      plt-track(v-if="track", :track="track")
+      .column.is-3.has-text-centered
+        figure.media-left
+          p.image(v-if="track && track.album")
+            img(:src="track.album.images[0].url")
+          p
+            a.button.is-primary.is-large
+              span.icon(@click="selectTrack")
+
+      .column.is-8
+        .panel
+          .panel-heading
+            h1.title {{ track.name }}
+          .panel-block
+            article.media
+              .media-content
+                .content
+                  ul(v-for="(v, k) in track")
+                    li
+                      strong {{ k }}:&nbsp;
+                      span {{ v }}
+
+                nav.level
+                  .level-left
+                    a.level-item
 </template>
 
 <script>
 import trackService from '@/services/track'
-
 import pltLoader from '@/components/shared/Loader.vue'
-import pltTrack from '@/components/Track.vue'
+import trackMixin from '@/mixins/track'
 
 export default {
-  components: { pltTrack, pltLoader },
+  components: { pltLoader },
+  mixins: [ trackMixin ],
   data: () => ({
     track: {},
     isLoading: false

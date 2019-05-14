@@ -1,25 +1,30 @@
 <template lang="pug">
   main
-    pltNotification(v-show="showNotification")
-      p(slot="body") No se encontraron resultados!
+    transition(name="move")
+      pltNotification(v-show="showNotification")
+        p(slot="body") No se encontraron resultados!
     section.section
       nav.navbar
         .container
           input.input.is-large(
             type="text",
             placeholder="Buscar canciones",
-            v-model="searchQuery"
+            v-model="searchQuery",
+            v-on:keyup.enter="search"
           )
           a.button.is-info.is-large(v-on:click="search") Buscar
           a.button.is-danger.is-large &times;
       .container
         p
           small {{ searchMessage }}
-      plt-loader(v-show="isLoading")
+      transition(name="move")
+        plt-loader(v-show="isLoading")
       .container.results(v-show="!isLoading")
-        .columns.is-multiline
-          .column.is-one-quarter(v-for="t in tracks")
+        //.columns.is-multiline
+        transition-group(name="fade", tag="div", class="columns is-multiline")
+          .column.is-one-quarter(v-for="t in tracks", :key="t.id")
             plt-track(
+              v-blur="t.preview_url",
               :class="{ 'is-active': t.id === selectedTrack }",
               :track="t",
               v-on:evSelect="setSelectedTrack"
