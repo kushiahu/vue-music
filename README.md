@@ -1,6 +1,7 @@
 # platzi-music
 
 > App curso de Vue.js platzi
+> This site was built using [Now.sh](https://zeit.co/now) and go to [Demo](https://pltzmusic.kushiahu.now.sh).
 
 ## Build Setup
 
